@@ -200,7 +200,7 @@ https://api.toshl.com/export
 > 
 < HTTP/1.1 201 Created
 < Allow: GET,POST
-< Location: /expenses/1032
+< Location: /expenses/1031
 < Content-Length: 176
 < Content-Type: application/json
 < 
@@ -215,7 +215,7 @@ https://api.toshl.com/export
 > 
 < HTTP/1.1 201 Created
 < Allow: GET,POST
-< Location: /expenses/1032
+< Location: /expenses/1031
 < Content-Length: 200
 < Content-Type: application/json
 < 
@@ -300,7 +300,7 @@ https://api.toshl.com/export
 					<ul>
 						<li class="fragment">
 							<p>URI</p>
-							<pre><code>http://api.toshl.com/v1/expenses/</code></pre>
+							<pre><code>https://api.toshl.com/v1/expenses/</code></pre>
 						</li>
 						<li class="fragment">
 							<p>Media Types</p>
@@ -311,7 +311,7 @@ application/vnd.toshl.expense.v1+json</code></pre>
 				</section>
 				<section>
 					<h2>Pagination</h2>
-					<pre><code>http://api.toshl.com/expenses?page=1&amp;per_page=20</code></pre>
+					<pre><code>https://api.toshl.com/expenses?page=1&amp;per_page=20</code></pre>
 					<p class="fragment">What about previous/next/last links?</p>
 					<pre class="fragment"><code>$ curl -v https://api.toshl.com/expenses
 					
