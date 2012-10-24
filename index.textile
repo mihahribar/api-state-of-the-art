@@ -1,0 +1,116 @@
+h1. API State of the Art
+
+bq. The WWW is fundamentally a distributed hypermedia application.
+-- Richard Taylor
+
+h2. How we build APIs today
+
+We use REST.
+
+bq. REpresentational State Transfer (REST) is a style of software architecture for distributed systems such as the World Wide Web.
+
+bq. A RESTful API is a web service implemented using HTTP and the principles of REST.
+
+Defined by Roy Fielding in his "doctoral dissertation":http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm in 2001.
+
+h3. REST Principles
+
+* Identification of resources @http://api.example.com@, @http://api.example.com/users@, @http://api.example.com/users/42@.
+* Manipulation of resources through these representations, @POST, GET PUT/PATCH, DELETE@.
+* Self-descriptive messages, via @Content-Type: application/json@
+* Hypermedia as the engine of application state (HATEOAS)
+
+Now this is where it gets tricky.
+
+h4. Define: HATEOAS
+
+bq. A client interacts with a network application entirely through hypermedia provided dynamically by application servers. A REST client needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia.
+-- "Wikipedia":http://en.wikipedia.org/wiki/HATEOAS
+
+It has to do with links.
+
+<pre>{
+	"id": 42,
+	"name": "John Cleese",
+	"email": "john@example.com",
+	"status": "verified"
+}</pre>
+
+Of which there are none. It is up to the client to figure out where the user object lives, meaning the client has to know what the server wants.
+
+*Simple data, complex client.*
+
+h2. But this is how we do things
+
+* We expose our objects by type-marshaling/serialization
+* Create special media types for each object
+* Smack a CRUD interface on top of it
+* And call it an API
+
+All is fine. Until you update the API.
+
+Update data, client breaks.
+
+*Simple data, complex client.*
+
+API Versioning doesn't help, if clients don't update, they will break eventually.
+
+h2. Stop
+
+Hammer time.
+
+h2. We're standing on the shoulder of giants
+
+bq. The WWW is fundamentally a distributed hypermedia application.
+-- Richard Taylor
+
+* Step back and look at the big picture.
+* We already have APIs and clients, they are hiding in plain sight
+* HTTP, HTML and the browser.
+
+* Point the browser to a web page
+* Browser executes a @GET page@.
+* @<a href="...">@ ... something is connected. If the user clicks a link, construct a @GET uri@ request.
+* @<form action="post">@ ... something can be done to modify this page. If the user submits the form, construct a @POST uri "data"@ request.
+
+*Why don't we do APIs this way?*
+
+If done this way, clients don't break. _Usually._
+
+h2. Hypermedia API
+
+Call it hypermedia API, because it's all about hypermedia.
+
+Construct your nice CRUD interface to the database, but expose processes, functionalities, not data.
+
+Choose a base format
+
+* XML
+* JSON
+* HTML
+
+Include links, control flow structures, templates etc.
+
+Separate client and server, so both can evolve on their own, independently.
+
+*Data changes, clients break.* _No more._
+
+Data changes, clients update automatically. They are just presented with more options they need to show. If they don't know how to, they just ignore it.
+
+*Backward compatibility.*
+
+No need to write SDK libraries for your API. Describe with transferred data what actions can be performed. Clients just need to display it.
+
+Clients become just like browsers.
+
+So in essence you are saying, build browsers.
+
+*YES*. And NO.
+
+Build clients that leverage HTTP, use caching and display data natively. Browsers don't do that.
+
+h2. Example
+
+h2. Links
+
+* Building Hypermedia APIs with HTML5 and Node

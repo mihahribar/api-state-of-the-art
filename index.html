@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>API - State of the art | Miha Hribar</title>
+		<meta name="description" content="A brief overview of the current state of APIs, where we are and where we are going.">
+		<meta name="author" content="Miha Hribar">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style type="text/css">
+		.reveal img.noborder { border: 0; background: none; box-shadow: none }
+		.twocolumn { -moz-column-count:2; -webkit-column-count:2; column-count:2; }
+		.twocolumn, .onecolumn { list-style: none !important; }
+		.twocolumn p, .onecolumn p { font-size: 0.8em; margin-bottom: 1em }
+		.twocolumn h4, .onecolumn h4 { margin-bottom: 0; margin-top: 0 }
+		</style>
+	</head>
+
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>API</h1>
+					<h3>State of the art</h3>
+				</section>
+				
+				<section>
+					<h2>@mihahribar</h2>
+					<p><img class="noborder" src="images/toshl.png" alt=""></p>
+					<h3>@toshl</h3>
+				</section>
+				
+				<section>
+					<h2>How we build APIs today?</h2>
+					<ul>
+						<li class="fragment">SOAP</li>
+						<li class="fragment">RPC</li>
+						<li class="fragment">REST</li>
+					</ul>
+				</section>
+				
+				<!-- REST section -->
+				<section>
+					<section>
+						<h2>Define: REST</h2>
+						<blockquote cite="http://en.wikipedia.org/wiki/Representational_state_transfer">
+							REpresentational State Transfer (REST) is a style of software architecture for distributed systems such as the World Wide Web.
+						</blockquote>
+					</section>
+					<section>
+						<h2>Define: RESTful API</h2>
+						<blockquote cite="http://en.wikipedia.org/wiki/Representational_state_transfer">
+							A RESTful API is a web service implemented using HTTP and the principles of REST.
+						</blockquote>
+						<p>Roy Fielding <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">doctoral dissertation</a>, 2000.</p>
+					</section>
+					<section>
+						<h2>Constraints</h2>
+						<ul class="twocolumn">
+							<li class="fragment">
+								<h4>Client-server</h4>
+								<p>Separate clients and servers.</p>
+							</li>
+							<li class="fragment">
+								<h4>Stateless server</h4>
+								<p>Each request from the client contains all the information necessary to service the request.</p>
+							</li>
+							<li class="fragment">
+								<h4>Cacheable</h4>
+								<p>Clients can cache responses, if permitted by the server.</p>
+							</li>
+							<li class="fragment">
+								<h4>Layered system</h4>
+								<p>Load balancers, proxies, firewalls etc.</p>
+							</li>
+							<li class="fragment">
+								<h4>Code on demand (optional)</h4>
+								<p>Client can request code from server and execute it.</p>
+							</li>
+							<li class="fragment">
+								<h4>Uniform interface</h4>
+								<p>Between the client and the server.</p>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Uniform Interface</h2>
+						<ul class="onecolumn">
+							<li>
+								<h4>Identification of resources</h4>
+								<p>Through URI. <code>api.example.com/users/42</code></p>
+							</li>
+							<li class="fragment">
+								<h4>Manipulation of resources</h4>
+								<p>POST, GET, PUT/PATCH, DELETE</p>
+							</li>
+							<li class="fragment">
+								<h4>Self-descriptive messages</h4>
+								<p>Through meta data.</p>
+							</li>
+							<li class="fragment">
+								<h4>Hypermedia as the engine of application state</h4>
+								<p>HATEOAS, huh?</p>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Define: HATEOAS</h2>
+						<blockquote cite="http://en.wikipedia.org/wiki/HATEOAS">
+							A client interacts with a network application entirely through hypermedia provided dynamically by application servers. A REST client needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia.
+						</blockquote>
+						<p class="fragment">In HTML <code>&lt;a&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;img&gt;</code> etc.</p>
+					</section>
+				</section>
+				
+				<!-- REST design -->
+				<section>
+					<h2>Let's jump in</h2>
+					<img src="images/frozen-pond.gif">
+					<p class="fragment">Think things through</p>
+				</section>
+				<section>
+					<h2>When in doubt</h2>
+					<p>Check the spec <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC 2616</a>.</p>
+				</section>
+				<section>
+					<h2>URI Structure</h2>
+					<ul>
+						<li>Collections</li>
+						<li>Resources</li>
+						<li>Controllers</li>
+					</ul>
+					<pre class="fragment"><code>https://api.toshl.com/expenses
+https://api.toshl.com/expenses/42
+https://api.toshl.com/budgets
+https://api.toshl.com/export
+</code></pre>
+				</section>
+				<section>
+					<h2>Help a client out</h2>
+					<pre><code>$ curl -v http://api.toshl.local
+					
+> GET / HTTP/1.1
+> 
+< HTTP/1.1 204 No Content
+< Allow: GET
+< Link: &lt;/expenses&gt;; rel="expenses",&lt;/expenses/tags&gt;; rel="expense tags",&lt;/incomes&gt;; rel="incomes",...
+< Content-Length: 0
+< Content-Type: application/json</code></pre>
+					<p>Include a handy <code>Link</code> header.</p>
+				</section>
+				<section>
+					<h2>CRUD</h2>
+					<ul>
+						<li>POST = <strong>C</strong>reate</li>
+						<li>GET = <strong>R</strong>ead</li>
+						<li>PUT/PATCH = <strong>U</strong>pdate</li>
+						<li>DELETE = <strong>D</strong>elete</li>
+					</ul>
+					<pre class="fragment"><code>$ curl -v http://api.toshl.local/expenses
+					
+> GET / HTTP/1.1
+> 
+< HTTP/1.1 200 OK
+< Allow: GET, POST, HEAD</code></pre>
+				</section>
+				<section>
+					<h2>Use correct response status codes</h2>
+					<ul>
+						<li>200 (OK)</li>
+						<li>201 (Created)</li>
+						<li>202 (Accepted)</li>
+						<li>204 (No Content)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Create</h2>
+					<pre><code>$ curl -v -X POST -d "..." http://api.toshl.local/expenses
+
+> POST /expenses HTTP/1.1
+> 
+< HTTP/1.1 201 Created
+< Allow: GET,POST
+< Location: /expenses/1032
+< Content-Length: 176
+< Content-Type: application/json
+< 
+{"id":1031,"amount":100,"currency":"EUR","rate":1,"date":"2012-10-23","desc":null,"tags":["food"],"loc":["0.000000","0.000000"],"modified":"2012-10-23T19:20:46+00:00Z","repeat":null,"extra":null}</code></pre>
+					<p class="fragment">Spot the error?</p>
+				</section>
+				<section>
+					<h2>Create</h2>
+					<pre><code>$ curl -v -X POST -d "..." http://api.toshl.local/expenses
+
+> POST /expenses HTTP/1.1
+> 
+< HTTP/1.1 201 Created
+< Allow: GET,POST
+< Location: /expenses/1032
+< Content-Length: 200
+< Content-Type: application/json
+< 
+{"id":1031,"href":"/expenses/1031","amount":100,"currency":"EUR","rate":1,"date":"2012-10-23","desc":null,"tags":["food"],"loc":["0.000000","0.000000"],"modified":"2012-10-23T19:20:46+00:00Z","repeat":null,"extra":null}</code></pre>
+					<p>HATEOAS - include a link to the resource URI.</p>
+				</section>
+				<section>
+					<h2>Read</h2>
+						<pre><code>$ curl -v http://api.toshl.local/expenses/1031
+
+> GET /expenses/1031 HTTP/1.1
+> 
+< HTTP/1.1 200 OK
+< Allow: GET,PUT,PATCH,DELETE
+< Content-Length: 219
+< Content-Type: application/json
+< 
+{"id":1031,"href":"/expenses/1031","amount":100,"currency":"EUR","rate":1,"date":"2012-10-23","desc":null,"tags":["food"],"loc":["0.000000","0.000000"],"modified":"2012-10-23T19:20:46+00:00Z","repeat":null,"extra":null}</code></pre>
+				</section>
+				<section>
+					<h2>Update</h2>
+					<pre><code>$ curl -v -X PUT -d "..." http://api.toshl.local/expenses/1031
+
+> PUT /expenses/1031 HTTP/1.1
+> 
+< HTTP/1.1 200 OK
+< Allow: GET,PUT,PATCH,DELETE
+< Content-Length: 219
+< Content-Type: application/json
+< 
+{"id":1031,"href":"/expenses/1031","amount":200,"currency":"EUR","rate":1,"date":"2012-10-23","desc":null,"tags":["food"],"loc":["0.000000","0.000000"],"modified":"2012-10-23T19:20:46+00:00Z","repeat":null,"extra":null}</code></pre>
+					<p class="fragment">GET and PUT are idempotent methods.</p>
+				</section>
+				<section>
+					<h2>Delete</h2>
+						<pre><code>$ curl -v -X DELETE http://api.toshl.local/expenses/1031
+
+> DELETE /expenses/1031 HTTP/1.1
+> 
+< HTTP/1.1 204 No Content
+< Allow: GET,PUT,PATCH,DELETE
+< Content-Length: 0
+< Content-Type: application/json
+<</code></pre>
+				</section>
+				<section>
+					<h2>Programmers are people too</h2>
+					<img src="images/data.jpeg">
+				</section>
+				<section>
+					<h2>Errors</h2>
+					<ul>
+						<li>400 (Bad Request)</li>
+						<li>401 (Unauthorized)</li>
+						<li>403 (Forbidden)</li>
+						<li>404 (Not Found)</li>
+						<li>405 (Method Not Allowed)</li>
+						<li>409 (Conflict)</li>
+						<li>500 (Internal Server Error)</li>
+						<li>503 (Service Unavailable)</li>
+						<li>418 (?) <a href="http://tools.ietf.org/html/rfc2324" class="fragment">I'm a teapot</a></li>
+					</ul>
+					<pre class="fragment"><code>{
+	"id": "income_limit"
+	"description": "Income limit reached."
+}</code></pre>
+				</section>
+				<section>
+					<h2>Media Types</h2>
+					<ul>
+						<li class="fragment">Format specification and parsing rules</li>
+						<li class="fragment"><code>application/json</code></li>
+						<li class="fragment"><code>application/vnd.toshl+json</code></li>
+						<li class="fragment"><code>application/vnd.toshl.expense+json</code></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Versioning</h2>
+					<ul>
+						<li class="fragment">
+							<p>URI</p>
+							<pre><code>http://api.toshl.com/v1/expenses/</code></pre>
+						</li>
+						<li class="fragment">
+							<p>Media Types</p>
+							<pre><code>application/vnd.toshl.v1+json
+application/vnd.toshl.expense.v1+json</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Pagination</h2>
+					<pre><code>http://api.toshl.com/expenses?page=1&amp;per_page=20</code></pre>
+					<p class="fragment">What about previous/next/last links?</p>
+					<pre class="fragment"><code>$ curl -v http://api.toshl.local/expenses
+					
+> GET / HTTP/1.1
+> 
+< HTTP/1.1 200 OK
+< Allow: GET, POST
+< Link: &lt;expenses?page=2&gt;; rel="next",&lt;expenses?page=9&gt;; rel="last"</code></pre>
+				</section>
+				<section>
+					<h2>Date &amp; time</h2>
+					<p>Timestamp <code>2012-10-23T22:05:37+00:00Z</code>. <a href="http://www.w3.org/TR/NOTE-datetime">ISO 8601</a>.</p>
+				</section>
+				<section>
+					<h2>Sync</h2>
+					<ul>
+						<li class="fragment"><p>Add <code>?since=1351033818</code></p></li>
+						<li class="fragment"><p>Add <code>?since_id=37821</code></p></li>
+						<li class="fragment">
+							<p>Using <code>Last-Modified</code> and <code>If-Modified-Since</code></p>
+							<p><a href="http://hribar.info/2012/09/restful-api-with-sync/">RESTful API with sync</a></p>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Caching</h2>
+					<ul>
+						<li class="fragment">Server responds with <code>ETag: "3e12ec4d-994fefe4-24c8868"</code></li>
+						<li class="fragment">Client can then send <code>If-None-Match: "3e12ec4d-994fefe4-24c8868"</code></li>
+						<li class="fragment">If not modified, server responds with 304 (Not Modified)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Security</h2>
+					<ul>
+						<li>Basic auth</li>
+						<li class="fragment">OAuth 1.0</li>
+						<li class="fragment">
+							<p>OAuth 2.0</p>
+							<pre><code>GET /resource HTTP/1.1
+Host: api.example.com
+Authorization: Bearer vF9dft4qmT</code></pre>
+						</li>
+						<li class="fragment">
+							<p>OAuth 2.0 + MAC</p>
+							<pre><code>GET /resource HTTP/1.1
+Host: api.example.com
+Authorization: MAC id="h480djs93hd8",
+	       nonce="264095:dj83hs9s",
+	       mac="SLDJd4mg43cjQfElUs3Qub4L6xE="</code></pre>
+						</li>
+					</ul>
+				</section>
+				
+				<!-- Hypermedia apis -->
+				<section>
+					<h2>Are we there yet?</h2>
+					<ul>
+						<li class="fragment">We expose our objects by type-marshaling/serialization</li>
+						<li class="fragment">Create special media types for each object</li>
+						<li class="fragment">Smack a CRUD interface on top of it</li>
+						<li class="fragment">And call it an API</li>
+					</ul>
+				</section>
+				<section>
+					<h2>But then</h2>
+					<ul>
+						<li class="fragment">Update the API, clients break</li>
+						<li class="fragment">Update process, rewrite clients</li>
+						<li class="fragment">Versioning doesn't help</li>
+						<li class="fragment">Simple data, complex client</li>
+						<li class="fragment">Shouldn't that be the other way round?</li>
+					</ul>
+				</section>	
+				<section>
+					<h2>Standing on the shoulders of giants</h2>
+					<blockquote>
+						The WWW is fundamentally a distributed hypermedia application. &#8212;Richard Taylor
+					</blockquote>
+					<p class="fragment">APIs and clients, they are hiding in plain sight.</p>
+					<p class="fragment">Websites, HTML and the browser.</p>
+				</section>
+				<section>
+					<img src="images/witch.jpeg">
+				</section>
+				<section>
+					<h2>Explain</h2>
+					<ul>
+						<li>Point the browser to a web page</li>
+						<li class="fragment">Browser executes a <code>GET page</code>.</li>
+						<li class="fragment">If the user clicks a link, construct a <code>GET uri</code> request.</li>
+						<li class="fragment">If the user submits a form, construct a <code>POST uri "data"</code> request.</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Complex data, simple client</h2>
+					<ul>
+						<li>Server can update independent from the client</li>
+						<li class="fragment">Clients don't break</li>
+						<li class="fragment">Clients don't have to know anything about your data</li>
+						<li class="fragment">Just how to parse it and present it</li>
+						<li class="fragment">Execute custom code on the client</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Why don't we build APIs this way?</h2>
+				</section>
+				<section>
+					<h2>Hypermedia APIs</h2>
+					<ul>
+						<li class="fragment">Use HTTP correctly</li>
+						<li class="fragment">Server hypermedia responses</li>
+						<li class="fragment">Expose processes not objects</li>
+					</ul>
+				</section>
+				
+				<!-- End -->
+				<section>
+					<h2>Thanks</h2>
+					<p><img src="images/thanks.jpeg" alt=""></p>
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
+					<h3>@mihahribar</h3>
+				</section>
+				
+				<section>
+					<h2>Links</h2>
+					<ul>
+						<li><a href="http://norestforjson.blogspot.co.uk/2012/08/json-is-not-restful.html">JSON != RESTful</a></li>
+						<li><a href="http://blog.steveklabnik.com/posts/2012-02-23-rest-is-over">REST is over</a></li>
+						<li><a href="http://designinghypermediaapis.com">Designing Hypermedia APIs</a></li>
+						<li><a href="http://stateless.co/hal_specification.html">HAL – Hypertext Application Language</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+		</script>
+
+	</body>
+</html>
