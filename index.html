@@ -107,7 +107,7 @@
 						<ul class="onecolumn">
 							<li>
 								<h4>Identification of resources</h4>
-								<p>Through URI. <code>api.example.com/users/42</code></p>
+								<p>Through URI. <code>api.toshl.com/users/42</code></p>
 							</li>
 							<li class="fragment">
 								<h4>Manipulation of resources</h4>
@@ -157,7 +157,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Help a client out</h2>
-					<pre><code>$ curl -v http://api.toshl.local
+					<pre><code>$ curl -v https://api.toshl.com
 					
 > GET / HTTP/1.1
 > 
@@ -176,7 +176,7 @@ https://api.toshl.com/export
 						<li>PUT/PATCH = <strong>U</strong>pdate</li>
 						<li>DELETE = <strong>D</strong>elete</li>
 					</ul>
-					<pre class="fragment"><code>$ curl -v http://api.toshl.local/expenses
+					<pre class="fragment"><code>$ curl -v https://api.toshl.com/expenses
 					
 > GET / HTTP/1.1
 > 
@@ -194,7 +194,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Create</h2>
-					<pre><code>$ curl -v -X POST -d "..." http://api.toshl.local/expenses
+					<pre><code>$ curl -v -X POST -d "..." https://api.toshl.com/expenses
 
 > POST /expenses HTTP/1.1
 > 
@@ -209,7 +209,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Create</h2>
-					<pre><code>$ curl -v -X POST -d "..." http://api.toshl.local/expenses
+					<pre><code>$ curl -v -X POST -d "..." https://api.toshl.com/expenses
 
 > POST /expenses HTTP/1.1
 > 
@@ -224,7 +224,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Read</h2>
-						<pre><code>$ curl -v http://api.toshl.local/expenses/1031
+						<pre><code>$ curl -v https://api.toshl.com/expenses/1031
 
 > GET /expenses/1031 HTTP/1.1
 > 
@@ -237,7 +237,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Update</h2>
-					<pre><code>$ curl -v -X PUT -d "..." http://api.toshl.local/expenses/1031
+					<pre><code>$ curl -v -X PUT -d "..." https://api.toshl.com/expenses/1031
 
 > PUT /expenses/1031 HTTP/1.1
 > 
@@ -251,7 +251,7 @@ https://api.toshl.com/export
 				</section>
 				<section>
 					<h2>Delete</h2>
-						<pre><code>$ curl -v -X DELETE http://api.toshl.local/expenses/1031
+						<pre><code>$ curl -v -X DELETE https://api.toshl.com/expenses/1031
 
 > DELETE /expenses/1031 HTTP/1.1
 > 
@@ -264,6 +264,9 @@ https://api.toshl.com/export
 				<section>
 					<h2>Programmers are people too</h2>
 					<img src="images/data.jpeg">
+				</section>
+				<section>
+					<img src="images/fry.png">
 				</section>
 				<section>
 					<h2>Errors</h2>
@@ -310,7 +313,7 @@ application/vnd.toshl.expense.v1+json</code></pre>
 					<h2>Pagination</h2>
 					<pre><code>http://api.toshl.com/expenses?page=1&amp;per_page=20</code></pre>
 					<p class="fragment">What about previous/next/last links?</p>
-					<pre class="fragment"><code>$ curl -v http://api.toshl.local/expenses
+					<pre class="fragment"><code>$ curl -v https://api.toshl.com/expenses
 					
 > GET / HTTP/1.1
 > 
@@ -331,6 +334,9 @@ application/vnd.toshl.expense.v1+json</code></pre>
 							<p>Using <code>Last-Modified</code> and <code>If-Modified-Since</code></p>
 							<p><a href="http://hribar.info/2012/09/restful-api-with-sync/">RESTful API with sync</a></p>
 						</li>
+						<li class="fragment">
+							<p>Using <code>Last-Modified</code> and <code>?since=2012-10-23T22:05:37+00:00Z</code></p>
+						</li>
 					</ul>
 				</section>
 				<section>
@@ -348,14 +354,14 @@ application/vnd.toshl.expense.v1+json</code></pre>
 						<li class="fragment">OAuth 1.0</li>
 						<li class="fragment">
 							<p>OAuth 2.0</p>
-							<pre><code>GET /resource HTTP/1.1
-Host: api.example.com
+							<pre><code>GET /expenses HTTP/1.1
+Host: api.toshl.com
 Authorization: Bearer vF9dft4qmT</code></pre>
 						</li>
 						<li class="fragment">
 							<p>OAuth 2.0 + MAC</p>
-							<pre><code>GET /resource HTTP/1.1
-Host: api.example.com
+							<pre><code>GET /expenses HTTP/1.1
+Host: api.toshl.com
 Authorization: MAC id="h480djs93hd8",
 	       nonce="264095:dj83hs9s",
 	       mac="SLDJd4mg43cjQfElUs3Qub4L6xE="</code></pre>
@@ -382,6 +388,16 @@ Authorization: MAC id="h480djs93hd8",
 						<li class="fragment">Simple data, complex client</li>
 						<li class="fragment">Shouldn't that be the other way round?</li>
 					</ul>
+				</section>
+				<section>
+					<h2>Define: HATEOAS (again)</h2>
+					<blockquote cite="http://en.wikipedia.org/wiki/HATEOAS">
+						A client interacts with a network application entirely through hypermedia provided dynamically by application servers. A REST client needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Close but no cigar</h2>
+					<img src="images/cigar.jpeg">
 				</section>	
 				<section>
 					<h2>Standing on the shoulders of giants</h2>
@@ -415,30 +431,81 @@ Authorization: MAC id="h480djs93hd8",
 				</section>
 				<section>
 					<h2>Why don't we build APIs this way?</h2>
+					<img src="images/picard.jpeg">
+				</section>
+				<section>
+					<a href="http://shop.oreilly.com/product/0636920021575.do"><img class="noborder" src="images/api-rulebook.jpeg"></a>
+				</section>
+				<section>
+					<h2>Define: WRML</h2>
+					<p>Web Resource Modeling Language</p>
+					<blockquote cite="http://www.wrml.org">
+						WRML, pronounced like "Wormle", is an open source project focused on providing standards, frameworks, and tools that support the development of web-oriented, client-server applications.
+					</blockquote>
+					<pre class="fragment"><code>> GET /common/Collection HTTP/1.1 Host: api.schemas.wrml.org
+
+< HTTP/1.1 200 OK
+< Content-Type: application/wrml;
+< format="http://api.formats.wrml.org/application/json"; schema="http://api.schemas.wrml.org/common/Collection"
+{"name" : "Collection", ...}</code></pre>
+				</section>
+				<section>
+					<a href="http://shop.oreilly.com/product/0636920020530.do"><img class="noborder" src="images/hypermedia-apis.jpeg"></a>
 				</section>
 				<section>
 					<h2>Hypermedia APIs</h2>
 					<ul>
 						<li class="fragment">Use HTTP correctly</li>
-						<li class="fragment">Server hypermedia responses</li>
+						<li class="fragment">Serve hypermedia responses</li>
 						<li class="fragment">Expose processes not objects</li>
 					</ul>
+				</section>
+				<section class="twocolumn">
+					<h2>Hypermedia factors</h2>
+					<img src="images/hypermedia-factors.png">
+					<ul>
+						<li>LO Outbound Links</li>
+						<li>LT Templated Links</li>
+						<li>LI Idempotent Links</li>
+						<li>LN Non-Idempotent Links</li>
+						<li>Embed Links</li>
+						<li>CU Update Controls</li>
+						<li>CM Method Controls</li>
+						<li>CL Link Annotation Controls</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Mind blown</h2>
+					<img class="noborder" src="images/mind-blown.jpeg">
+				</section>
+				<section>
+					<h2>Collection+JSON</h2>
+					<pre><code>// sample collection object
+{
+	"collection" : {
+		"version" : "1.0", 
+		"href" : URI,
+		"links" : [ARRAY], 
+		"items : [ARRAY], 
+		"queries" : [ARRAY], 
+		"template" : {OBJECT}, 
+		"error" : {OBJECT}
+	}
+}</code></pre>
 				</section>
 				
 				<!-- End -->
 				<section>
-					<h2>Thanks</h2>
-					<p><img src="images/thanks.jpeg" alt=""></p>
-				</section>
-
-				<section>
-					<h2>Questions?</h2>
-					<h3>@mihahribar</h3>
+					<img class="noborder" width="500px" src="images/hammertime.jpeg" alt="">
 				</section>
 				
 				<section>
 					<h2>Links</h2>
 					<ul>
+						<li>@mihahribar</li>
+						<li><a href="http://hribar.info/talks/api-state-of-the-art">hribar.info/talks/api-state-of-the-art</a></li>
+						<li><a href="http://shop.oreilly.com/product/0636920021575.do">REST API Design Rulebook</a>, Mark Masse</li>
+						<li><a href="http://shop.oreilly.com/product/0636920020530.do">Building Hypermedia APIs with HTML5 and Node</a>, Mike Amundsen</li>
 						<li><a href="http://norestforjson.blogspot.co.uk/2012/08/json-is-not-restful.html">JSON != RESTful</a></li>
 						<li><a href="http://blog.steveklabnik.com/posts/2012-02-23-rest-is-over">REST is over</a></li>
 						<li><a href="http://designinghypermediaapis.com">Designing Hypermedia APIs</a></li>
