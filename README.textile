@@ -1,6 +1,6 @@
 h1. API - State of the art
 
-Slides from my talk at <a href="hribar.info/talks/api-state-of-the-art">WWWH #211</a>.
+Slides from my talk at <a href="http://urice.si/talks/2012/10/22/spletne-urice-211-oblikovanje-programskih-vmesnikov/">WWWH #211</a>.
 
 You can view them online at "hribar.info/talks/api-state-of-the-art":http://hribar.info/talks/api-state-of-the-art.
 
