@@ -1,6 +1,6 @@
 h1. API - State of the art
 
-Slides from my talk at <a href="http://wwwh.si">WWWH</a> #211.
+Slides from my talk at <a href="hribar.info/talks/api-state-of-the-art">WWWH #211</a>.
 
 You can view them online at "hribar.info/talks/api-state-of-the-art":http://hribar.info/talks/api-state-of-the-art.
 
